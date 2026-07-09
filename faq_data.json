@@ -1,0 +1,50 @@
+[
+    {
+        "question": "What is Python?",
+        "answer": "Python is a high-level programming language used for web development, AI, data science, and automation."
+    },
+    {
+        "question": "What is Artificial Intelligence?",
+        "answer": "Artificial Intelligence (AI) enables machines to perform tasks that normally require human intelligence."
+    },
+    {
+        "question": "What is Machine Learning?",
+        "answer": "Machine Learning is a subset of AI where computers learn patterns from data."
+    },
+    {
+        "question": "What is NLP?",
+        "answer": "Natural Language Processing helps computers understand, interpret, and generate human language."
+    },
+    {
+        "question": "What is Deep Learning?",
+        "answer": "Deep Learning is a branch of Machine Learning that uses neural networks with many layers."
+    },
+    {
+        "question": "What is Data Science?",
+        "answer": "Data Science combines statistics, programming, and machine learning to extract insights from data."
+    },
+    {
+        "question": "What is GitHub?",
+        "answer": "GitHub is a platform used to host and manage Git repositories."
+    },
+    {
+        "question": "What is CodeAlpha?",
+        "answer": "CodeAlpha offers internships and project-based learning opportunities for students."
+    },
+    {
+        "question": "How do I apply for a CodeAlpha internship?",
+        "answer": "Visit the official CodeAlpha website and complete the internship application form."
+    },
+    {
+        "question": "Which programming language should beginners learn?",
+        "answer": "Python is one of the easiest and most popular programming languages for beginners."
+    },
+    {
+        "question": "What is Tkinter?",
+        "answer": "Tkinter is Python's built-in library for creating desktop graphical user interfaces."
+    },
+    {
+        "question": "What is Scikit-Learn?",
+        "answer": "Scikit-Learn is a popular Python library used for machine learning and data analysis."
+    }
+]
