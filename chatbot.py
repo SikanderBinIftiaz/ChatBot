@@ -15,16 +15,32 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 load_dotenv()
 
-API_KEY = (
-    st.secrets.get("GEMINI_API_KEY", None)
-    or os.getenv("GEMINI_API_KEY")
-)
+
+def get_api_key():
+    """
+    Get Gemini API Key from:
+    1. Streamlit Secrets (Cloud)
+    2. .env file (Local)
+    """
+
+    try:
+        if "GEMINI_API_KEY" in st.secrets:
+            return st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        pass
+
+    return os.getenv("GEMINI_API_KEY")
+
+
+API_KEY = get_api_key()
 
 if not API_KEY:
     raise ValueError(
-        "GEMINI_API_KEY not found. "
-        "Please add it to Streamlit Secrets or your local .env file."
+        "GEMINI_API_KEY not found.\n\n"
+        "Local: Add it to your .env file.\n"
+        "Streamlit Cloud: Add it under Settings → Secrets."
     )
+
 
 client = genai.Client(api_key=API_KEY)
 
@@ -83,7 +99,7 @@ class FAQChatbot:
                 "I'm doing great! 😊",
 
             "who are you":
-                "I'm your AI Assistant powered by Google Gemini.",
+                "I'm your AI FAQ Assistant powered by Google Gemini.",
 
             "what is your name":
                 "I'm AI FAQ Assistant.",
@@ -95,14 +111,15 @@ class FAQChatbot:
                 "You're welcome! 😊",
 
             "bye":
-                "Goodbye! 👋",
+                "Goodbye! 👋 Have a wonderful day.",
 
             "goodbye":
-                "See you again! 👋"
+                "See you again soon! 👋"
 
         }
 
-        print(f"✅ Loaded {len(self.questions)} FAQs")
+        print("✅ FAQ Loaded Successfully")
+        print(f"✅ Total FAQs: {len(self.questions)}")
 
 
     # ==========================================================
@@ -125,16 +142,19 @@ class FAQChatbot:
 
         except Exception as e:
 
+            print("\n========== GEMINI ERROR ==========")
+            print(type(e))
             print(e)
+            print("==================================")
 
             return (
-                "Sorry, Gemini AI is currently unavailable.\n\n"
-                f"Error: {e}"
+                "Sorry, the AI service is temporarily unavailable.\n\n"
+                f"Error: {str(e)}"
             )
 
 
     # ==========================================================
-    # SEARCH FAQ
+    # FAQ SEARCH
     # ==========================================================
 
     def search_faq(self, question):
@@ -166,25 +186,26 @@ class FAQChatbot:
 
 
     # ==========================================================
-    # MAIN ANSWER FUNCTION
+    # GET ANSWER
     # ==========================================================
 
     def get_answer(self, user_question):
 
         question = user_question.strip()
 
-        if question == "":
+        if not question:
+
             return (
                 "Please enter a question.",
                 0.0
             )
 
-        lower_question = question.lower()
+        lower = question.lower()
 
-        if lower_question in self.greetings:
+        if lower in self.greetings:
 
             return (
-                self.greetings[lower_question],
+                self.greetings[lower],
                 1.0
             )
 
@@ -211,7 +232,7 @@ class FAQChatbot:
 
 if __name__ == "__main__":
 
-    chatbot = FAQChatbot()
+    bot = FAQChatbot()
 
     print("=" * 60)
     print("🤖 AI FAQ Chatbot")
@@ -224,7 +245,7 @@ if __name__ == "__main__":
         if question.lower() == "exit":
             break
 
-        answer, confidence = chatbot.get_answer(question)
+        answer, confidence = bot.get_answer(question)
 
         print("\nBot:")
         print(answer)
