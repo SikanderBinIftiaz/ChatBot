@@ -1,6 +1,7 @@
 import os
 import json
 
+import streamlit as st
 from dotenv import load_dotenv
 from google import genai
 
@@ -9,32 +10,32 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 # ==========================================================
-# Load API Key
+# LOAD API KEY
 # ==========================================================
 
 load_dotenv()
 
-API_KEY = os.getenv("GEMINI_API_KEY")
+API_KEY = (
+    st.secrets.get("GEMINI_API_KEY", None)
+    or os.getenv("GEMINI_API_KEY")
+)
 
 if not API_KEY:
     raise ValueError(
-        "GEMINI_API_KEY not found in .env file."
+        "GEMINI_API_KEY not found. "
+        "Please add it to Streamlit Secrets or your local .env file."
     )
 
 client = genai.Client(api_key=API_KEY)
 
 
 # ==========================================================
-# FAQ Chatbot
+# FAQ CHATBOT
 # ==========================================================
 
 class FAQChatbot:
 
     def __init__(self):
-
-        # -----------------------------
-        # Load FAQ Database
-        # -----------------------------
 
         with open("faq_data.json", "r", encoding="utf-8") as file:
             self.data = json.load(file)
@@ -49,10 +50,6 @@ class FAQChatbot:
             for item in self.data
         ]
 
-        # -----------------------------
-        # Build Search Engine
-        # -----------------------------
-
         self.vectorizer = TfidfVectorizer(
             lowercase=True,
             stop_words="english"
@@ -61,10 +58,6 @@ class FAQChatbot:
         self.question_vectors = self.vectorizer.fit_transform(
             self.questions
         )
-
-        # -----------------------------
-        # Greeting Responses
-        # -----------------------------
 
         self.greetings = {
 
@@ -87,10 +80,10 @@ class FAQChatbot:
                 "Good Evening! 🌙",
 
             "how are you":
-                "I'm doing great! 😊 Thanks for asking.",
+                "I'm doing great! 😊",
 
             "who are you":
-                "I'm your AI Assistant powered by Google Gemini and an FAQ knowledge base.",
+                "I'm your AI Assistant powered by Google Gemini.",
 
             "what is your name":
                 "I'm AI FAQ Assistant.",
@@ -102,21 +95,18 @@ class FAQChatbot:
                 "You're welcome! 😊",
 
             "bye":
-                "Goodbye! 👋 Have a wonderful day.",
+                "Goodbye! 👋",
 
             "goodbye":
-                "See you again soon! 👋"
+                "See you again! 👋"
 
         }
 
-        print("✅ FAQ Loaded Successfully")
-        print(f"✅ Total FAQs : {len(self.questions)}")
-            # ==========================================================
-   
-   
-   
-   
-    # Ask Gemini
+        print(f"✅ Loaded {len(self.questions)} FAQs")
+
+
+    # ==========================================================
+    # GEMINI
     # ==========================================================
 
     def ask_gemini(self, question):
@@ -128,26 +118,23 @@ class FAQChatbot:
                 contents=question
             )
 
-            if response.text:
+            if hasattr(response, "text") and response.text:
                 return response.text.strip()
 
             return "Sorry, I couldn't generate a response."
 
         except Exception as e:
 
-            print("\n========== GEMINI ERROR ==========")
-            print(type(e))
             print(e)
-            print("==================================\n")
 
             return (
-                "Sorry, the AI service is temporarily unavailable.\n"
+                "Sorry, Gemini AI is currently unavailable.\n\n"
                 f"Error: {e}"
             )
 
 
     # ==========================================================
-    # Search FAQ
+    # SEARCH FAQ
     # ==========================================================
 
     def search_faq(self, question):
@@ -176,11 +163,10 @@ class FAQChatbot:
             confidence,
             False
         )
-    
 
 
-        # ==========================================================
-    # Get Answer
+    # ==========================================================
+    # MAIN ANSWER FUNCTION
     # ==========================================================
 
     def get_answer(self, user_question):
@@ -193,10 +179,6 @@ class FAQChatbot:
                 0.0
             )
 
-        # -----------------------------
-        # Greeting Check
-        # -----------------------------
-
         lower_question = question.lower()
 
         if lower_question in self.greetings:
@@ -205,10 +187,6 @@ class FAQChatbot:
                 self.greetings[lower_question],
                 1.0
             )
-
-        # -----------------------------
-        # FAQ Search
-        # -----------------------------
 
         answer, confidence, found = self.search_faq(question)
 
@@ -219,10 +197,6 @@ class FAQChatbot:
                 confidence
             )
 
-        # -----------------------------
-        # Gemini AI
-        # -----------------------------
-
         answer = self.ask_gemini(question)
 
         return (
@@ -232,7 +206,7 @@ class FAQChatbot:
 
 
 # ==========================================================
-# Terminal Testing
+# TERMINAL TEST
 # ==========================================================
 
 if __name__ == "__main__":
@@ -240,19 +214,18 @@ if __name__ == "__main__":
     chatbot = FAQChatbot()
 
     print("=" * 60)
-    print("🤖 AI FAQ Assistant")
+    print("🤖 AI FAQ Chatbot")
     print("=" * 60)
 
     while True:
 
-        question = input("\nYou : ")
+        question = input("\nYou: ")
 
         if question.lower() == "exit":
             break
 
         answer, confidence = chatbot.get_answer(question)
 
-        print("\nBot :")
+        print("\nBot:")
         print(answer)
-
-        print(f"\nConfidence : {confidence:.2%}")
+        print(f"\nConfidence: {confidence:.2%}")

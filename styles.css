@@ -1,0 +1,671 @@
+```css
+/* ============================================================
+   AI FAQ Chatbot - Professional Streamlit UI Theme
+   CodeAlpha Internship Project
+   ============================================================ */
+
+
+/* =========================
+   GLOBAL APPLICATION STYLE
+   ========================= */
+
+html,
+body,
+[class*="css"] {
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+
+.stApp {
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(99, 102, 241, 0.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(14, 165, 233, 0.12),
+            transparent 35%
+        ),
+        #0f172a;
+    color: #e2e8f0;
+}
+
+
+/* Remove Streamlit default padding */
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    max-width: 1400px;
+}
+
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+section[data-testid="stSidebar"] {
+
+    background:
+        linear-gradient(
+            180deg,
+            #111827,
+            #020617
+        );
+
+    border-right:
+        1px solid rgba(255,255,255,0.08);
+
+}
+
+
+section[data-testid="stSidebar"] * {
+
+    color: #e5e7eb;
+
+}
+
+
+section[data-testid="stSidebar"] button {
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    transition:
+        all .25s ease;
+
+}
+
+
+section[data-testid="stSidebar"] button:hover {
+
+    background:
+        rgba(99,102,241,0.25);
+
+    transform:
+        translateX(5px);
+
+}
+
+
+
+/* =========================
+   HEADER AREA
+   ========================= */
+
+.chat-header {
+
+    padding:
+        25px 30px;
+
+    border-radius:
+        22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(99,102,241,.35),
+            rgba(14,165,233,.25)
+        );
+
+    backdrop-filter:
+        blur(20px);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.25);
+
+    animation:
+        fadeIn .6s ease;
+
+}
+
+
+.chat-header h1 {
+
+    font-size:
+        2.2rem;
+
+    font-weight:
+        800;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+.chat-header p {
+
+    color:
+        #cbd5e1;
+
+    font-size:
+        1rem;
+
+}
+
+
+
+/* =========================
+   DASHBOARD CARDS
+   ========================= */
+
+
+.dashboard-card {
+
+    padding:
+        20px;
+
+    border-radius:
+        18px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    backdrop-filter:
+        blur(12px);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+.dashboard-card:hover {
+
+    transform:
+        translateY(-6px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.35);
+
+}
+
+
+.dashboard-card-title {
+
+    color:
+        #94a3b8;
+
+    font-size:
+        .9rem;
+
+}
+
+
+.dashboard-card-value {
+
+    font-size:
+        2rem;
+
+    font-weight:
+        800;
+
+    color:
+        #f8fafc;
+
+}
+
+
+
+/* =========================
+   CHAT CONTAINER
+   ========================= */
+
+
+.chat-container {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        18px;
+
+}
+
+
+/* USER MESSAGE */
+
+
+.user-message {
+
+    align-self:
+        flex-end;
+
+    max-width:
+        75%;
+
+    padding:
+        15px 20px;
+
+    border-radius:
+        20px 20px 5px 20px;
+
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #2563eb
+        );
+
+
+    color:
+        white;
+
+    box-shadow:
+        0 10px 25px rgba(37,99,235,.35);
+
+
+    animation:
+        slideRight .35s ease;
+
+}
+
+
+
+/* AI MESSAGE */
+
+
+.ai-message {
+
+    align-self:
+        flex-start;
+
+
+    max-width:
+        80%;
+
+
+    padding:
+        18px 22px;
+
+
+    border-radius:
+        20px 20px 20px 5px;
+
+
+    background:
+        rgba(255,255,255,.08);
+
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+
+    color:
+        #e2e8f0;
+
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+
+
+    animation:
+        slideLeft .35s ease;
+
+}
+
+
+
+/* =========================
+   MARKDOWN CONTENT
+   ========================= */
+
+
+.ai-message code {
+
+    background:
+        #020617;
+
+    padding:
+        3px 7px;
+
+    border-radius:
+        6px;
+
+}
+
+
+.ai-message pre {
+
+    background:
+        #020617;
+
+    padding:
+        18px;
+
+    border-radius:
+        12px;
+
+    overflow-x:
+        auto;
+
+}
+
+
+.ai-message table {
+
+    border-collapse:
+        collapse;
+
+    width:
+        100%;
+
+}
+
+
+.ai-message th,
+.ai-message td {
+
+    border:
+        1px solid rgba(255,255,255,.15);
+
+    padding:
+        10px;
+
+}
+
+
+
+/* =========================
+   INPUT BOX
+   ========================= */
+
+
+textarea {
+
+    background:
+        rgba(255,255,255,.07)
+        !important;
+
+    border:
+        1px solid rgba(255,255,255,.15)
+        !important;
+
+    border-radius:
+        18px
+        !important;
+
+    color:
+        white
+        !important;
+
+}
+
+
+textarea:focus {
+
+    border:
+        1px solid #6366f1
+        !important;
+
+    box-shadow:
+        0 0 20px rgba(99,102,241,.35)
+        !important;
+
+}
+
+
+
+/* =========================
+   BUTTONS
+   ========================= */
+
+
+.stButton button {
+
+    border-radius:
+        12px;
+
+    padding:
+        8px 18px;
+
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #2563eb
+        );
+
+
+    color:
+        white;
+
+
+    border:
+        none;
+
+
+    font-weight:
+        600;
+
+
+    transition:
+        all .25s ease;
+
+}
+
+
+.stButton button:hover {
+
+    transform:
+        translateY(-3px);
+
+
+    box-shadow:
+        0 10px 25px rgba(99,102,241,.4);
+
+}
+
+
+
+/* =========================
+   FILE UPLOAD
+   ========================= */
+
+
+[data-testid="stFileUploader"] {
+
+    background:
+        rgba(255,255,255,.05);
+
+    border-radius:
+        16px;
+
+    padding:
+        10px;
+
+}
+
+
+
+/* =========================
+   EXPANDERS
+   ========================= */
+
+
+.streamlit-expanderHeader {
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+
+
+/* =========================
+   SCROLLBAR
+   ========================= */
+
+
+::-webkit-scrollbar {
+
+    width:
+        8px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+    background:
+        #020617;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background:
+        #475569;
+
+    border-radius:
+        10px;
+
+}
+
+
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-15px);
+
+    }
+
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+
+@keyframes slideRight {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(40px);
+
+    }
+
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+
+@keyframes slideLeft {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(-40px);
+
+    }
+
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+
+
+@media(max-width:768px){
+
+
+    .chat-header h1 {
+
+        font-size:
+            1.5rem;
+
+    }
+
+
+    .user-message,
+    .ai-message {
+
+        max-width:
+            95%;
+
+    }
+
+
+    .dashboard-card {
+
+        margin-bottom:
+            12px;
+
+    }
+
+
+}
+```
